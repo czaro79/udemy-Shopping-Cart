@@ -5,6 +5,12 @@ public class Item {
     private double price;
 
     public Item(String name, double price) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null/blank.");
+        }
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be lower then zero.");
+        }
         this.name = name;
         this.price = price;
     }
@@ -32,6 +38,9 @@ public class Item {
      * @param name the name to set
      */
     public void setName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null/blank.");
+        }
         this.name = name;
     }
 
@@ -39,6 +48,9 @@ public class Item {
      * @param price the price to set
      */
     public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be lower then zero.");
+        }
         this.price = price;
     }
 
