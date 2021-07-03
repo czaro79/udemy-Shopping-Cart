@@ -54,6 +54,14 @@ public class Item {
         this.price = price;
     }
 
+    public boolean equals(Item item) {
+        if (item == null || !(item instanceof Item)) {
+            return false;
+        }
+    
+        return this.getName().equals(item.getName()) && this.getPrice() == item.getPrice();
+    }
+
     public String toString() {
         return name + ": $" + price + " ";
     }

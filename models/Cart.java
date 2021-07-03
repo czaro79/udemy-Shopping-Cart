@@ -26,10 +26,14 @@ public class Cart {
      *         Inside the function: 1. Adds an item to the cart if it wasn't already
      *         added.
      */
-    public void add(Item item) {
-        if (!this.items.contains(item)) {
-            this.items.add(new Item(item));
+    public boolean add(Item obj) {
+        for (Item item : items) {
+            if (item.equals(obj)) {
+                return false;
+            }
+            this.items.add(new Item(obj));
         }
+        return true;
     }
 
     /**
@@ -58,9 +62,16 @@ public class Cart {
      *         below.
      */
     public String checkout(int index) {
-        double priceBeforeTax = this.items.get(index).getPrice();
-        return "\tRECEIPT\n\n" + "\tSubtotal: $" + priceBeforeTax + "\n" + "\tTax: $" + (priceBeforeTax * 0.13) + "\n"
-                + "\tTotal: $" + (priceBeforeTax * 1.13) + "\n";
+        double[] measures = new double[3];
+
+        for (Item item : items) {
+            measures[0] += item.getPrice();
+        }
+        measures[1] = measures[0] * 0.13;
+        measures[2] = measures[0] + measures[1];
+
+        return "\tRECEIPT\n\n" + "\tSubtotal: $" + measures[0] + "\n" + "\tTax: $" + measures[1] + "\n" + "\tTotal: $"
+                + measures[3] + "\n";
     }
 
     public String toString() {
