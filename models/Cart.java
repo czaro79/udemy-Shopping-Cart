@@ -29,13 +29,11 @@ public class Cart {
      *         Inside the function: 1. Adds an item to the cart if it wasn't already
      *         added.
      */
-    public boolean add(Item obj) {
-        for (Item item : items) {
-            if (item.equals(obj)) {
-                return false;
-            }
-            this.items.add(new Item(obj));
+    public boolean add(Item item) {
+        if (this.items.contains(item)) {
+            return false;
         }
+        this.items.add(new Item(item));
         return true;
     }
 
@@ -54,6 +52,10 @@ public class Cart {
         }
     }
 
+    public boolean isEmpty() {
+        return this.items.isEmpty();
+    }
+
     /**
      * Name: checkout
      * 
@@ -64,21 +66,24 @@ public class Cart {
      *         subtotal + tax 4. Returns a String that resembles a receipt. See
      *         below.
      */
-    public String checkout(int index) {
-        if (this.items == null) {
-            throw new IllegalStateException("Items cannot be null.");
+    public String checkout() {
+        if (items.isEmpty()) {
+            throw new IllegalStateException("cannot checkout an empty cart");
         }
 
         double[] measures = new double[3];
-
-        for (Item item : items) {
-            measures[0] += item.getPrice();
+        for (int i = 0; i < this.items.size(); i++) {
+            measures[0] += this.items.get(i).getPrice();
         }
         measures[1] = measures[0] * 0.13;
         measures[2] = measures[0] + measures[1];
 
-        return "\tRECEIPT\n\n" + "\tSubtotal: $" + measures[0] + "\n" + "\tTax: $" + measures[1] + "\n" + "\tTotal: $"
-                + measures[3] + "\n";
+
+        return "\tRECEIPT\n\n" +
+        "\tSubtotal: $" + measures[0] + "\n" +
+        "\tTax: $" + measures[1] + "\n" +
+        "\tTotal: $" + measures[2] + "\n";
+
     }
 
     public String toString() {

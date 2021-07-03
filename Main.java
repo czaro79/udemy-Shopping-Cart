@@ -19,9 +19,7 @@ public class Main {
             e.printStackTrace();
         } finally {
 
-            System.out.println("\n\t******************************JAVA GROCERS******************************\n");
-
-            System.out.println(store);
+            manageItems();
 
         }
 
@@ -34,6 +32,63 @@ public class Main {
      * cart. • case b: asks for the name. Then, removes item from cart. • case c:
      * prints the receipt and closes Scanner. • Prints the updated shopping cart.
      */
+    public static void manageItems() {
+        Scanner scan = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("\n\t******************************JAVA GROCERS******************************\n");
+            System.out.println(store);
+            System.out.println("Options: \n\ta) Add to cart\n\tb) Remove from cart \n\tc) Checkout");
+
+            String response = scan.nextLine();
+
+            switch (response) {
+                case "a":
+                    System.out.print("\nChoose an aisle number between: 1 – 7: ");
+                    int row = scan.hasNextInt() ? scan.nextInt() - 1 : 404;
+                    if (row < 0 || row > 7) {
+                        continue;
+                    }
+                    scan.nextLine();
+                    System.out.print("Choose an item number between: 1 – 3: ");
+                    int column = scan.hasNextInt() ? scan.nextInt() - 1 : 404;
+                    if (column < 0 || column > 2) {
+                        continue;
+                    }
+                    scan.nextLine();
+                    Item item = store.getItem(row, column);
+                    if (!cart.add(item)) {
+                        System.out.println(item.getName() + " is already in your shopping cart.");
+                    } else {
+                        System.out.println(item.getName() + " was added to your shopping cart.");
+                    }
+                    break;
+
+                case "b":
+                    if (cart.isEmpty()) {
+                        continue;
+                    }
+                    System.out.print("Enter the item you'd like to remove: ");
+                    String name = scan.nextLine();
+                    cart.remove(name);
+
+                    break;
+                case "c":
+                    if (cart.isEmpty()) {
+                        continue;
+                    }
+                    System.out.println(cart.checkout());
+                    scan.nextLine();
+                    scan.close();
+                    return;
+                default:
+                    continue;
+            }
+            System.out.println("\n\nSHOPPING CART\n\n" + cart.toString());
+            System.out.print("Enter anything to continue: ");
+            scan.nextLine();
+        }
+    }
 
     /**
      * Name: loadItems

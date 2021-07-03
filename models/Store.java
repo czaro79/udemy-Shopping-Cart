@@ -7,6 +7,8 @@ public class Store {
         this.items = new Item[7][3];
     }
 
+  
+
     /**
      * @return the item
      */
@@ -51,8 +53,9 @@ public class Store {
             for (int j = 0; j < items[0].length; j++) {
                 temp += this.items[i][j] + " ";
             }
-            temp += "\n";
+            temp += "\n\n";
         }
+        temp += "\t************************************************************************\n";
         return temp;
     }
 }
