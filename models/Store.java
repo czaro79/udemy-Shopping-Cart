@@ -51,7 +51,7 @@ public class Store {
             for (int j = 0; j < items[0].length; j++) {
                 temp += this.items[i][j] + " ";
             }
-            temp += "\n\n";
+            temp += "\n";
         }
         return temp;
     }
