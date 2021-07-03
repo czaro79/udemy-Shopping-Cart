@@ -10,6 +10,9 @@ public class Cart {
     }
 
     public Item getItem(int index) {
+        if (this.items == null) {
+            throw new IllegalStateException("Cannot get Item from an empty Cart");
+        }
         return new Item(this.items.get(index));
     }
 
@@ -62,6 +65,10 @@ public class Cart {
      *         below.
      */
     public String checkout(int index) {
+        if (this.items == null) {
+            throw new IllegalStateException("Items cannot be null.");
+        }
+
         double[] measures = new double[3];
 
         for (Item item : items) {
